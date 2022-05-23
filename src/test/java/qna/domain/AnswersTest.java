@@ -14,11 +14,14 @@ class AnswersTest {
     @Test
     @DisplayName("삭제 처리가 정상적으로 되는지 확인")
     void delete() {
-        List<DeleteHistory> actualHistory = ANSWERS.delete();
+        Answer answer1 = new Answer(UserTest.JAVAJIGI, QuestionTest.Q1, "Answers Contents1");
+        Answer answer2 = new Answer(UserTest.SANJIGI, QuestionTest.Q1, "Answers Contents2");
+        Answers answers = new Answers(List.of(answer1, answer2));
+        List<DeleteHistory> actualHistory = answers.delete();
         List<DeleteHistory> expectHistory = List.of(AnswerTest.A1_DELETE_HISOTRY, AnswerTest.A2_DELETE_HISOTRY);
 
-        assertThat(AnswerTest.A1.isDeleted()).isTrue();
-        assertThat(AnswerTest.A2.isDeleted()).isTrue();
+        assertThat(answer1.isDeleted()).isTrue();
+        assertThat(answer2.isDeleted()).isTrue();
         assertThat(actualHistory).isEqualTo(expectHistory);
     }
 

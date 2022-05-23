@@ -34,13 +34,12 @@ public class QuestionTest {
 
     @Test
     @DisplayName("질문 삭제 이력 및 삭제 처리가 정상적으로 동작하는지 확인")
-    void delete() {
+    void delete() throws CannotDeleteException {
         Question question = new Question("title1", "contents1").writeBy(UserTest.JAVAJIGI);
         question.addAnswer(new Answer(UserTest.JAVAJIGI, QuestionTest.Q1, "Answers Contents1"));
-        question.addAnswer(new Answer(UserTest.SANJIGI, QuestionTest.Q1, "Answers Contents2"));
-        
-        List<DeleteHistory> actual = question.delete();
-        List<DeleteHistory> expect = List.of(Q1_DELETE_HISTORY, AnswerTest.A1_DELETE_HISOTRY, AnswerTest.A2_DELETE_HISOTRY);
+
+        List<DeleteHistory> actual = question.delete(UserTest.JAVAJIGI);
+        List<DeleteHistory> expect = List.of(Q1_DELETE_HISTORY, AnswerTest.A1_DELETE_HISOTRY);
 
         assertThat(question.isDeleted()).isTrue();
         assertThat(actual).isEqualTo(expect);
