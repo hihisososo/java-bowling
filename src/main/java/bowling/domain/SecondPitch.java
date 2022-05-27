@@ -13,7 +13,7 @@ public class SecondPitch {
   }
 
   private void assertSecondPitch(int knockDownPin) {
-    if (knockDownPin > Frame.PIN_NUMBER || knockDownPin < 0) {
+    if (knockDownPin > BowlingGame.PIN_NUMBER || knockDownPin < 0) {
       throw new InvalidParameterException(INVALID_PIN_NUMBER_MSG);
     }
   }

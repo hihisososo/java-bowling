@@ -1,5 +1,9 @@
 package bowling.domain;
 
-public class Frame {
-  public static final int PIN_NUMBER = 10;
+public interface Frame {
+
+  void play();
+
+  boolean isPlayable();
+
 }
