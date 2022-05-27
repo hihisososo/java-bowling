@@ -20,7 +20,7 @@ public class FirstPitch {
     return knockDownPin;
   }
 
-  public boolean needSecondPitch() {
-    return Frame.PIN_NUMBER > knockDownPin;
+  public boolean isStrike() {
+    return knockDownPin == Frame.PIN_NUMBER;
   }
 }

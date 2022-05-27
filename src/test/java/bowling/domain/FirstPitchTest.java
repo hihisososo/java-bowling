@@ -20,11 +20,11 @@ public class FirstPitchTest {
   }
 
   @ParameterizedTest
-  @DisplayName("두번째 투구가 필요한 경우를 확인")
-  @CsvSource(value = {"1|true", "5|true", "10|false"}, delimiter = '|')
-  void needSecondPitch(int knockDownPin, boolean expect) {
+  @DisplayName("스트라이크인지 확인")
+  @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+  void isStrike(int knockDownPin) {
     FirstPitch firstFitch = new FirstPitch(knockDownPin);
-    assertThat(firstFitch.needSecondPitch()).isEqualTo(expect);
+    assertThat(firstFitch.isStrike()).isTrue();
   }
 
   @ParameterizedTest
