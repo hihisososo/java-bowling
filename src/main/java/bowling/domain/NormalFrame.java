@@ -4,35 +4,35 @@ import static bowling.utl.RandomValueGenerator.getRandom;
 
 public class NormalFrame implements Frame {
 
-  private final Score score;
+  private FirstPitch firstPitch;
+  private SecondPitch secondPitch;
 
   public NormalFrame() {
-    this.score = Score.init();
+    this.firstPitch = FirstPitch.EMPTY;
+    this.secondPitch = SecondPitch.EMPTY;
   }
 
   @Override
-  public void play() {
-    if (score.getStatus() == Stauts.EMPTY) {
-      recordFirstPitch();
-    } else if (score.getStatus() == Stauts.NEED_SECOND_PITCH) {
-      recordSecondPitch();
+  public void pitch() {
+    if (firstPitch == FirstPitch.EMPTY) {
+      doFirstPitch();
+    }
+    doSecondPitch();
+  }
+
+  private void doSecondPitch() {
+    this.secondPitch = SecondPitch.from(firstPitch, getRandom(firstPitch.getDownPin()));
+  }
+
+  private void doFirstPitch() {
+    this.firstPitch = FirstPitch.from(getRandom(BowlingGame.PIN_NUMBER));
+    if (firstPitch == FirstPitch.STRIKE) {
+      secondPitch = SecondPitch.from(firstPitch, 0);
     }
   }
 
   @Override
-  public boolean isPlayable() {
-    return score.isPlayable();
-  }
-
-  public Score getScore() {
-    return score;
-  }
-
-  private void recordSecondPitch() {
-    score.record(new SecondPitch(getRandom(BowlingGame.PIN_NUMBER - score.getFirstKnockDownPin())));
-  }
-
-  private void recordFirstPitch() {
-    score.record(new FirstPitch(getRandom(BowlingGame.PIN_NUMBER)));
+  public boolean needPitch() {
+    return secondPitch == SecondPitch.EMPTY;
   }
 }

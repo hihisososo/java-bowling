@@ -2,8 +2,8 @@ package bowling.domain;
 
 public interface Frame {
 
-  void play();
+  void pitch();
 
-  boolean isPlayable();
+  boolean needPitch();
 
 }
