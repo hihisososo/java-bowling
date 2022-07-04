@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.security.InvalidParameterException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class NormalPitchesTest {
 
@@ -49,6 +51,14 @@ public class NormalPitchesTest {
 
     assertThat(canPitch.canPitch()).isEqualTo(true);
     assertThat(canNotPitch.canPitch()).isEqualTo(false);
+  }
+
+  @ParameterizedTest
+  @CsvSource(value = {"0|10", "5|5", "2|8"}, delimiter = '|')
+  void 남은_핀(int downPin, int expect) {
+    NormalPitches normalPitches = new NormalPitches();
+    normalPitches.pitch(downPin);
+    assertThat(normalPitches.remainPin()).isEqualTo(expect);
   }
 
 }

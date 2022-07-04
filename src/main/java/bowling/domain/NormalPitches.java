@@ -19,10 +19,10 @@ public class NormalPitches {
   }
 
   public void pitch(int downPin) {
-    if(values.size() == 2){
+    if (values.size() == 2) {
       throw new InvalidParameterException(NO_MORE_PITCH);
     }
-    if(values.size() == 0){
+    if (values.size() == 0) {
       values.add(NormalPitch.first(downPin));
       return;
     }
@@ -30,7 +30,7 @@ public class NormalPitches {
   }
 
   public boolean canPitch() {
-    if(isStrike() || values.size() == 2){
+    if (isStrike() || values.size() == 2) {
       return false;
     }
     return true;
@@ -38,5 +38,13 @@ public class NormalPitches {
 
   private boolean isStrike() {
     return values.size() == 1 && values.get(0).getStatus() == Status.STRIKE;
+  }
+
+  public int remainPin() {
+    int remain = BowlingGame.PIN_NUMBER;
+    for (NormalPitch normalPitch : values) {
+      remain -= normalPitch.getDownPin();
+    }
+    return remain;
   }
 }

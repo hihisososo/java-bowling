@@ -4,6 +4,6 @@ public interface Frame {
 
   void pitch();
 
-  boolean needPitch();
+  boolean canPitch();
 
 }
