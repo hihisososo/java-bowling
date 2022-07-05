@@ -2,7 +2,7 @@ package bowling.domain;
 
 import java.security.InvalidParameterException;
 
-public class NormalPitch {
+public class NormalPitch implements Pitch{
 
   private static final String INVALID_PIN_MSG = "쓰러뜨린 핀 개수가 적합하지 않습니다.";
   private final int downPin;
