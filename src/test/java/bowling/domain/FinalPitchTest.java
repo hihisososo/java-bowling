@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class FinalPitchTest {
 
-  @ParameterizedTest
+  /*@ParameterizedTest
   @CsvSource(value = {"10|STRIKE", "9|HIT", "1|HIT", "0|GUTTER"}, delimiter = '|')
   void 첫피치_생성(int downPin, Status status) {
     FinalPitch finalPitch = FinalPitch.first(downPin);
@@ -48,5 +48,5 @@ public class FinalPitchTest {
     FinalPitch bonus = FinalPitch.bonus(first, second);
 
     assertThat(bonus.getStatus()).isEqualTo(status);
-  }
+  }*/
 }

@@ -1,34 +1,48 @@
 package bowling.domain;
 
-import static bowling.utl.RandomValueGenerator.getRandom;
+import java.security.InvalidParameterException;
+import java.util.Optional;
 
 public class NormalFrame implements Frame {
 
-  private final NormalPitches normalPitches;
+    public static final String NO_MORE_PITCH = "더이상 피칭할 수 없습니다.";
+    private NormalFirstPitch normalFirstPitch;
+    private NormalSecondPitch normalSecondPitch;
+    private int remainPin;
 
-  private NormalFrame() {
-    this.normalPitches = new NormalPitches();
-  }
+    public NormalFrame() {
+        this.remainPin = BowlingGame.PIN_NUMBER;
+    }
 
-  public static NormalFrame first() {
-    return new NormalFrame();
-  }
+    @Override
+    public void pitch(int downPin) {
+        if (isFirstStrike() || isSecondExist()) {
+            throw new InvalidParameterException(NO_MORE_PITCH);
+        }
+        remainPin -= downPin;
+        if (Optional.ofNullable(normalFirstPitch).isPresent()) {
+            this.normalSecondPitch = new NormalSecondPitch(normalFirstPitch, downPin);
+            return;
+        }
+        this.normalFirstPitch = Optional.ofNullable(normalFirstPitch).orElse(new NormalFirstPitch(downPin));
+    }
 
-  public NormalFrame next() {
-    return new NormalFrame();
-  }
+    private boolean isSecondExist() {
+        return Optional.ofNullable(normalSecondPitch).isPresent();
+    }
 
-  @Override
-  public void pitch() {
-    normalPitches.pitch(getRandom(normalPitches.remainPin()));
-  }
+    private boolean isFirstStrike() {
+        return Optional.ofNullable(normalFirstPitch).isPresent() && normalFirstPitch.getStatus() == Status.STRIKE;
+    }
 
-  @Override
-  public boolean canPitch() {
-    return normalPitches.canPitch();
-  }
+    @Override
+    public boolean canPitch() {
+        return !(isFirstStrike() || isSecondExist());
+    }
 
-  public int getPitchSize() {
-    return normalPitches.size();
-  }
+    @Override
+    public int getRemainPin() {
+        return remainPin;
+    }
+
 }

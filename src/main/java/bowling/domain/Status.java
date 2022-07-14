@@ -1,5 +1,15 @@
 package bowling.domain;
 
 public enum Status {
-  STRIKE, HIT, SPARE, MISS, GUTTER
+    STRIKE("X"), HIT(""), SPARE("/"), MISS(""), GUTTER("-");
+
+    private String expression;
+
+    Status(String expression) {
+        this.expression = expression;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
 }
