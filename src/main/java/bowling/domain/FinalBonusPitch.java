@@ -24,12 +24,12 @@ public class FinalBonusPitch {
 
     //첫째가 스트라이크가 아니라면, 무조건 스페어 처리 된 것이다.
     private Status getStatusFirstNotStrike(int downPin) {
-        return getStatusWithPrevStrikeOrSpare(downPin);
+        return getStatusWithRemainAllPin(downPin);
     }
 
     private Status getStatusFirstStrike(FinalSecondPitch secondPitch, int downPin) {
         if (secondPitch.getStatus() == Status.STRIKE) {
-            return getStatusWithPrevStrikeOrSpare(downPin);
+            return getStatusWithRemainAllPin(downPin);
         }
         return getStatusWithRemainPin(secondPitch, downPin);
     }
@@ -46,7 +46,7 @@ public class FinalBonusPitch {
         return Status.HIT;
     }
 
-    private Status getStatusWithPrevStrikeOrSpare(int downPin) {
+    private Status getStatusWithRemainAllPin(int downPin) {
         if (downPin == BowlingGame.PIN_NUMBER) {
             return Status.STRIKE;
         } else if (downPin == 0) {
