@@ -97,4 +97,15 @@ public class FinalFrame implements Frame {
         return Optional.ofNullable(finalBonusPitch).isEmpty();
     }
 
+    public FinalFirstPitch getFinalFirstPitch() {
+        return finalFirstPitch;
+    }
+
+    public FinalSecondPitch getFinalSecondPitch() {
+        return finalSecondPitch;
+    }
+
+    public FinalBonusPitch getFinalBonusPitch() {
+        return finalBonusPitch;
+    }
 }

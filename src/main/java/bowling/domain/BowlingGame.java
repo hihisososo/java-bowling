@@ -23,4 +23,8 @@ public class BowlingGame {
     public User getUser() {
         return user;
     }
+
+    public Frames getFrames() {
+        return frames;
+    }
 }

@@ -20,11 +20,23 @@ public class NormalFrame implements Frame {
             throw new InvalidParameterException(NO_MORE_PITCH);
         }
         remainPin -= downPin;
-        if (Optional.ofNullable(normalFirstPitch).isPresent()) {
-            this.normalSecondPitch = new NormalSecondPitch(normalFirstPitch, downPin);
+        if (isFirstNotExist()) {
+            doFirstPitch(downPin);
             return;
         }
-        this.normalFirstPitch = Optional.ofNullable(normalFirstPitch).orElse(new NormalFirstPitch(downPin));
+        doSecondPitch(downPin);
+    }
+
+    private void doSecondPitch(int downPin) {
+        this.normalSecondPitch = new NormalSecondPitch(normalFirstPitch, downPin);
+    }
+
+    private void doFirstPitch(int downPin) {
+        this.normalFirstPitch = new NormalFirstPitch(downPin);
+    }
+
+    private boolean isFirstNotExist() {
+        return Optional.ofNullable(normalFirstPitch).isEmpty();
     }
 
     private boolean isSecondExist() {
@@ -45,4 +57,11 @@ public class NormalFrame implements Frame {
         return remainPin;
     }
 
+    public NormalFirstPitch getNormalFirstPitch() {
+        return normalFirstPitch;
+    }
+
+    public NormalSecondPitch getNormalSecondPitch() {
+        return normalSecondPitch;
+    }
 }
