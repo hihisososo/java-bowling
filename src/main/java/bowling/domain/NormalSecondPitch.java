@@ -20,7 +20,7 @@ public class NormalSecondPitch {
             return Status.SPARE;
         } else if (0 == downPinSum) {
             return Status.MISS;
-        } else if(0 == secondDownPin){
+        } else if (0 == secondDownPin) {
             return Status.GUTTER;
         }
         return Status.HIT;

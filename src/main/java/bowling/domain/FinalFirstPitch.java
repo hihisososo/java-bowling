@@ -29,12 +29,15 @@ public class FinalFirstPitch {
         }
     }
 
-  public int getDownPin() {
-    return downPin;
-  }
+    public int getDownPin() {
+        return downPin;
+    }
 
-  public Status getStatus() {
-    return status;
-  }
+    public Status getStatus() {
+        return status;
+    }
 
+    public boolean isStrike() {
+        return this.status == Status.STRIKE;
+    }
 }

@@ -30,7 +30,7 @@ public class NormalFrameTest {
     }
 
     @RepeatedTest(50)
-    void 프레임_피칭을_여러번_했을_때() {
+    void 프레임_피칭은_1에서_2사이() {
         NormalFrame normalFrame = new NormalFrame();
 
         int pitchCount = 0;

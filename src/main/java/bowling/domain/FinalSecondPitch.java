@@ -67,4 +67,12 @@ public class FinalSecondPitch {
     public Status getStatus() {
         return status;
     }
+
+    public boolean isStrike() {
+        return this.status == Status.STRIKE;
+    }
+
+    public boolean isSpare() {
+        return this.status == Status.SPARE;
+    }
 }

@@ -3,7 +3,7 @@ package bowling.domain;
 public enum Status {
     STRIKE("X"), HIT(""), SPARE("/"), MISS(""), GUTTER("-");
 
-    private String expression;
+    private final String expression;
 
     Status(String expression) {
         this.expression = expression;

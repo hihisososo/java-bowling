@@ -29,11 +29,11 @@ public class NormalFirstPitch {
         }
     }
 
-  public int getDownPin() {
-    return downPin;
-  }
+    public int getDownPin() {
+        return downPin;
+    }
 
-  public Status getStatus() {
-    return status;
-  }
+    public Status getStatus() {
+        return status;
+    }
 }

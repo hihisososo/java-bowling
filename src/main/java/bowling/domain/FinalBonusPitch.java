@@ -19,22 +19,18 @@ public class FinalBonusPitch {
         if (firstPitch.getStatus() == Status.STRIKE) {
             return getStatusFirstStrike(secondPitch, downPin);
         }
-        return getStatusFirstNotStrike(downPin);
-    }
-
-    //첫째가 스트라이크가 아니라면, 무조건 스페어 처리 된 것이다.
-    private Status getStatusFirstNotStrike(int downPin) {
-        return getStatusWithPrevStrikeOrSpare(downPin);
+        //첫째가 스트라이크가 아니라면, 무조건 스페어 처리 된 것이다.
+        return getStatusSecondSpare(downPin);
     }
 
     private Status getStatusFirstStrike(FinalSecondPitch secondPitch, int downPin) {
         if (secondPitch.getStatus() == Status.STRIKE) {
-            return getStatusWithPrevStrikeOrSpare(downPin);
+            return getStatusSecondStrike(downPin);
         }
-        return getStatusWithRemainPin(secondPitch, downPin);
+        return getStatusSecondNotStrike(secondPitch, downPin);
     }
 
-    private Status getStatusWithRemainPin(FinalSecondPitch secondPitch, int downPin) {
+    private Status getStatusSecondNotStrike(FinalSecondPitch secondPitch, int downPin) {
         int downPinSum = secondPitch.getDownPin() + downPin;
         if (downPinSum == BowlingGame.PIN_NUMBER) {
             return Status.SPARE;
@@ -46,7 +42,16 @@ public class FinalBonusPitch {
         return Status.HIT;
     }
 
-    private Status getStatusWithPrevStrikeOrSpare(int downPin) {
+    private Status getStatusSecondStrike(int downPin) {
+        if (downPin == BowlingGame.PIN_NUMBER) {
+            return Status.STRIKE;
+        } else if (downPin == 0) {
+            return Status.GUTTER;
+        }
+        return Status.HIT;
+    }
+
+    private Status getStatusSecondSpare(int downPin) {
         if (downPin == BowlingGame.PIN_NUMBER) {
             return Status.STRIKE;
         } else if (downPin == 0) {

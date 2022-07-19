@@ -1,85 +1,82 @@
 package qna.domain;
 
-import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import qna.NotFoundException;
 import qna.UnAuthorizedException;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Answer extends AbstractEntity {
 
-  @ManyToOne(optional = false)
-  @JoinColumn(foreignKey = @ForeignKey(name = "fk_answer_writer"))
-  private User writer;
+    @ManyToOne(optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_answer_writer"))
+    private User writer;
 
-  @ManyToOne(optional = false)
-  @JoinColumn(foreignKey = @ForeignKey(name = "fk_answer_to_question"))
-  private Question question;
+    @ManyToOne(optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_answer_to_question"))
+    private Question question;
 
-  @Lob
-  private String contents;
+    @Lob
+    private String contents;
 
-  private boolean deleted = false;
+    private boolean deleted = false;
 
-  public Answer() {
-  }
-
-  public Answer(User writer, Question question, String contents) {
-    this(null, writer, question, contents);
-  }
-
-  public Answer(Long id, User writer, Question question, String contents) {
-    super(id);
-
-    if (writer == null) {
-      throw new UnAuthorizedException();
+    public Answer() {
     }
 
-    if (question == null) {
-      throw new NotFoundException();
+    public Answer(User writer, Question question, String contents) {
+        this(null, writer, question, contents);
     }
 
-    this.writer = writer;
-    this.question = question;
-    this.contents = contents;
-  }
+    public Answer(Long id, User writer, Question question, String contents) {
+        super(id);
 
-  public Answer setDeleted(boolean deleted) {
-    this.deleted = deleted;
-    return this;
-  }
+        if (writer == null) {
+            throw new UnAuthorizedException();
+        }
 
-  public boolean isDeleted() {
-    return deleted;
-  }
+        if (question == null) {
+            throw new NotFoundException();
+        }
 
-  public DeleteHistory delete() {
-    setDeleted(true);
-    return new DeleteHistory(ContentType.ANSWER, getId(), writer, LocalDateTime.now());
-  }
+        this.writer = writer;
+        this.question = question;
+        this.contents = contents;
+    }
 
-  public boolean isOwner(User writer) {
-    return this.writer.equals(writer);
-  }
+    public Answer setDeleted(boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
 
-  public User getWriter() {
-    return writer;
-  }
+    public boolean isDeleted() {
+        return deleted;
+    }
 
-  public String getContents() {
-    return contents;
-  }
+    public DeleteHistory delete() {
+        setDeleted(true);
+        return new DeleteHistory(ContentType.ANSWER, getId(), writer, LocalDateTime.now());
+    }
 
-  public void toQuestion(Question question) {
-    this.question = question;
-  }
+    public boolean isOwner(User writer) {
+        return this.writer.equals(writer);
+    }
 
-  @Override
-  public String toString() {
-    return "Answer [id=" + getId() + ", writer=" + writer + ", contents=" + contents + "]";
-  }
+    public User getWriter() {
+        return writer;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public void toQuestion(Question question) {
+        this.question = question;
+    }
+
+    @Override
+    public String toString() {
+        return "Answer [id=" + getId() + ", writer=" + writer + ", contents=" + contents + "]";
+    }
 }
